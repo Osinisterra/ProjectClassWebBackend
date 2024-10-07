@@ -1,9 +1,18 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
+
+// Configurar CORS
+app.use(cors({
+  origin: 'http://localhost:5173', // Cambia esto a la URL de tu frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
+}));
+
 app.use(express.json());  // Para poder manejar JSON en las peticiones
 
 // URL de conexión a MongoDB Atlas (Asegúrate de reemplazar <db_password> con tu contraseña real)
