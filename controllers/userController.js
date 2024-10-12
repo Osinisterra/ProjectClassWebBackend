@@ -4,10 +4,16 @@ const User = require('../models/User');
 
 // Registro usuario
 const registerUser = async (req, res) => {
-  const { email, password, createdBy } = req.body;
+  const { name, email, password, createdBy, termsAccepted } = req.body;
+
+  // Verificar si el usuario aceptó los términos y condiciones
+  if (!termsAccepted) {
+    return res.status(400).json({ message: 'Debes aceptar los términos y condiciones.' });
+  }
+
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword, createdBy, updatedBy: createdBy, isActive: true });
+    const newUser = new User({ name, email, password: hashedPassword, createdBy, updatedBy: createdBy, isActive: true , termsAccepted});
     await newUser.save();
     res.json({ message: 'Usuario registrado correctamente' });
   } catch (error) {
