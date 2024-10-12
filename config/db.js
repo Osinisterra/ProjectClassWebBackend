@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const dbPassword = 'WFisTYItWBj06i44';
-    const mongoUri = `mongodb+srv://mongodb:${dbPassword}@cluster0.09zow.mongodb.net/DBProjectUSCClassWeb?retryWrites=true&w=majority&appName=Cluster0`;
+    const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
     await mongoose.connect(mongoUri, {});
     console.log('Conectado a MongoDB Atlas');
   } catch (error) {
